@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <%- include('../../partials/head'); -%>
+</head>
+
+<body>
+  <%- include('../../partials/navbar'); -%>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col s12 m12 l12 left-align text-blue darken-4">
+        <h3>Usuários</h3>
+        <a class="waves-effect waves-light btn" href="/admin/users/create">Criar novo usuário</a>
+      </div>      
+    </div>
+
+    <!-- Tabela com todos os usuarios cadastrados -->
+    <table class="highlight centered responsive-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>          
+        </tr>
+        <% }) %>
+      </tbody> 
+    </table>
+  </div>
+
+    <%- include('../../partials/script'); -%>
+</body>
+
+</html>

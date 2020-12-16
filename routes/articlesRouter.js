@@ -1,20 +1,21 @@
 const express = require('express');
 const Controller = require('../controllers/articlesController');
+const adminAuth = require('../middlewares/adminAuth');
 
 const router = express.Router();
 
 // Listar artigos
-router.get('/admin/articles', Controller.findAllArticles);
+router.get('/admin/articles', adminAuth, Controller.findAllArticles);
 // Criar artigo
-router.get('/admin/articles/new-article', Controller.newArticle);
+router.get('/admin/articles/new-article', adminAuth, Controller.newArticle);
 // Salvar artigo
-router.post('/articles/save', Controller.saveArticle);
+router.post('/articles/save', adminAuth, Controller.saveArticle);
 // Deletar artigo
-router.post('/articles/delete', Controller.removeArticle);
+router.post('/articles/delete', adminAuth, Controller.removeArticle);
 // Editar artigo
-router.get('/admin/articles/edit/:id', Controller.editArticle);
+router.get('/admin/articles/edit/:id', adminAuth, Controller.editArticle);
 // Atualizar artigo
-router.post('/articles/update', Controller.updateArticle);
+router.post('/articles/update', adminAuth, Controller.updateArticle);
 //Paginação de artigos
 router.get('/articles/page/:num', Controller.paginationArticles);
 

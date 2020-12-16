@@ -1,7 +1,7 @@
 const Article = require('../models/Article');
 const Category = require('../models/Category');
 const slugify = require('slugify');
-
+const adminAuth = require('../middlewares/adminAuth');
 
 // Listar artigos
 const findAllArticles = async (req, res) => {
@@ -17,7 +17,7 @@ const findAllArticles = async (req, res) => {
 // Criar artigo
 const newArticle = async (req, res) => {
   Category.findAll(categories => {
-    res.render('/admin/articles/new-article', { categories: categories });
+    res.render('admin/articles/new-article', { categories: categories });
   });
 };
 
@@ -99,7 +99,7 @@ const updateArticle = async (req, res) => {
       where: { id: id }
     })
     .the(() => {
-      res.redirect('admin/articles');
+      res.redirect('/admin/articles');
     })
     .catch(err => {
       res.redirect('/');
@@ -120,7 +120,7 @@ const paginationArticles = async (req, res) => {
       order: [['id', DEC]]
     })
     .then(articles => {
-      const next;
+      var next;
       offset + 4 >= articles.count ? next = false : next = true;
 
       const result = {

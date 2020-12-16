@@ -63,7 +63,7 @@ const editCategory = async (req, res) => {
 
   Category.findByPk(id).then(category => {
     if (category != undefined) {
-      res.render('/admin/categories/edit-category', { category: category });
+      res.render('admin/categories/edit-category', { category: category });
     } else {
       res.redirect('/admin/categories');
     }
