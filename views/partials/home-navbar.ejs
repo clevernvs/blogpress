@@ -1,0 +1,11 @@
+<nav>
+  <div class="nav-wrapper grey darken-4">
+    <a href="#" class="brand-logo light-blue-text text-darken-4"><strong>Blogpress</strong></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#">Home</a></li>
+      <% categories.forEach(category => { %>
+      <li><a href="/category/<%= category.slug %>"><%= category.title %></a></li>
+      <% }) %>
+    </ul>
+  </div>
+</nav>

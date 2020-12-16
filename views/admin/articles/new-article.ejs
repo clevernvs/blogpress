@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); -%>
+</head>
+
+<body>
+  <%- include('../../partials/navbar'); -%>
+
+  <div class="container">
+
+    <!-- Enunciado -->
+    <div class="row">
+      <div class="col s12 m12 l12 left-align text-blue darken-4">
+        <h3>Novo Artigo</h3>
+      </div>
+    </div>
+  
+    <!-- Formulário -->
+    <div class="card-panel">
+      <div class="card-content">
+
+        <form method="POST" action="/categories/save">
+
+          <!-- Titulo -->
+          <div class="input-field col s12 m12 l12">
+            <label for="title">Título: </label>
+            <input id="title" type="text" class="validate" placeholder="Título do artigo">
+          </div>
+
+          <!-- Artigo -->
+          <div class="input-field col s12 m12 l12">
+            <label for="textarea">Artigo: </label>
+            <textarea 
+              id="article" 
+              name="body" 
+              class="materialize-textarea" 
+              placeholder="Escreva o seu artigo aqui.">
+            </textarea>
+          </div>
+
+          <!-- Categoria -->
+          <div class="row">
+            <div class="col s4 m4 l4">
+              <div class="input-field">
+                <label for="textarea">Categoria: </label>
+                <select name="category">
+                  <% categories.forEach((categories) => { %>
+                  <option value="<%= category.id %>"><%= category.title %></option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Btn: Publicar -->
+          <div class="row">
+            <div class="right-align">
+              <button name="action" type="submit" class="btn waves-effect waves-light blue darken-4">Publicar</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <%- include('../../partials/script'); -%>
+  <script src="tinymce/js/tinymce/tinymce.min.js"></script>
+  <script>
+
+    tinymce.init({
+      selector: "#article",
+      language: "pt_BR",
+      plugins: [
+        'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+      ]
+    });
+
+  </script>
+</body>
+
+</html>

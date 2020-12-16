@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); -%>
+</head>
+
+<body>
+  <%- include('../../partials/navbar'); -%>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col s12 m12 l12 left-align text-blue darken-4">
+        <h3>Cadastro de categoria</h3>
+      </div>
+    </div>
+
+    <!-- brn: Nova Categoria -->
+    <div class="row cols">
+      <div class="col s4 m4 l4">
+        <a class="waves-effect waves-light btn" href="/admin/categories/new">
+          <i class="material-icons left">plus</i>Nova Categoria
+        </a>
+      </div>
+    </div>
+
+
+    <div class="card-panel">
+      <div class="card-content">
+
+        <form method="POST" action="'/categories/save">
+          <div class="input-field col s12 m12 l12">
+            <input id="tag" type="text" class="validate" placeholder="Digite a sua tag">
+            <label for="tag">Tag: </label>
+          </div>
+
+          <button name="action" type="submit" class="btn waves-effect waves-light">Cadastrar</button>
+        </form>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <%- include('../../partials/script'); -%>
+</body>
+
+</html>

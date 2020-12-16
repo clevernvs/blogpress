@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); -%>
+</head>
+
+<body>
+  <%- include('../../partials/navbar'); -%>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col s12 m12 l12 left-align text-blue darken-4">
+        <h3>Edição de categoria</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col s4 m4 l4">
+        <a class="waves-effect waves-light blue darken-4 btn" href="/admin/categories/new">
+          <i class="material-icons left">plus</i>Nova Categoria
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div class="card-panel">
+          <div class="card-content">
+
+            <form method="POST" action="'/categories/update">
+              <div class="input-field col s6">
+                <input 
+                  id="tag" 
+                  type="text" 
+                  class="validate" 
+                  value="<%= category.title %>"
+                  placeholder="Digite a sua tag">
+                <input name="id" type="hidden" class="validate" value="<%= category.id %>">
+                <label for="tag">Tag</label>
+              </div>
+
+              <button name="action" type="submit" class="btn waves-effect waves-light blue darken-4">
+                <i class="material-icons right">check</i>Atualizar</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <%- include('../../partials/script'); -%>
+</body>
+
+</html>
