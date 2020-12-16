@@ -111,18 +111,20 @@ const paginationArticles = async (req, res) => {
   const page = req.params.num;
   const offset = 0;
 
-  IsNaN(page) || page == 1 ? offset = 0 : offset = parseInt(page) * 4 ;
+  IsNaN(page) || page == 1 ? offset = 0 : offset = (parseInt(page) - 1) * 4;
 
   Article
     .findAndCountAll({
       limit: 5,
-      offset: offset
+      offset: offset,
+      order: [['id', DEC]]
     })
     .then(articles => {
       const next;
-      offset + 4 >= articles.count ? next = false : next = true ;
-      
+      offset + 4 >= articles.count ? next = false : next = true;
+
       const result = {
+        page: parseInt(page),
         next: next,
         articles: articles,
       };

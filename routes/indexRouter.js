@@ -8,7 +8,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   Article
     .findAll({
-      order: ['id', DEC]
+      order: [['id', DEC]],
+      limit: 4
     })
     .then(articles => {
       Category.findAll().then(categories => {
