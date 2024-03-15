@@ -1,6 +1,6 @@
-const express = require('express');
-const Article = require('../models/Article');
-const Category = require('../models/Category');
+import express from 'express';
+import Article from '../models/Article';
+import Category from '../models/Category';
 
 const router = express.Router();
 
@@ -52,7 +52,7 @@ router.get('/category/:slug', (req, res) => {
         Category
           .findAll()
           .then(categories => {
-            res.render('index', { articles: category.articles, categories: categories})
+            res.render('index', { articles: category.articles, categories: categories })
           })
           .catch()
 

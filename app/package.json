@@ -3,22 +3,32 @@
   "version": "1.0.0",
   "description": "Blog",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
+    "start:dev": "NODE_ENV=dev nodemon app.js",
+    "start:prod": "NODE_ENV=prod node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "MySQL"
+  ],
   "author": "Cleverton Neves",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "dotenv": "^16.4.5",
     "ejs": "^2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "mysql2": "^2.2.5",
-    "nodemon": "^2.0.6",
     "sequelize": "^6.3.5",
     "slugify": "^1.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

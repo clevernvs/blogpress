@@ -1,5 +1,5 @@
-const Category = require('../models/Category');
-const slugify = require('slugify');
+import { create, findAll, destroy, findByPk, update } from '../models/Category';
+import slugify from 'slugify';
 
 // Criar categoria
 const createNewCategory = async (req, res) => {
@@ -10,7 +10,7 @@ const createNewCategory = async (req, res) => {
 const saveCategory = async (req, res) => {
   const title = req.body.title;
   if (title !== undefined) {
-    Category.create({
+    create({
       title: title,
       slug: slugify(title)
     })
@@ -24,7 +24,7 @@ const saveCategory = async (req, res) => {
 
 // Listar Categorias
 const findAllCategory = async (req, res) => {
-  Category.findAll().then(categories => {
+  findAll().then(categories => {
     res.render('/admin/categories/index', { categories: categories });
   });
 };
@@ -35,10 +35,9 @@ const removeCategory = async (req, res) => {
   try {
     if (id != undefined) {
       if (!isNaN(id)) {
-        Category
-          .destroy({
-            where: { id: id }
-          })
+        destroy({
+          where: { id: id }
+        })
           .then(() => {
             res.redirect('/admin/categories');
           });
@@ -61,7 +60,7 @@ const editCategory = async (req, res) => {
     res.redirect('/admin/categories');
   }
 
-  Category.findByPk(id).then(category => {
+  findByPk(id).then(category => {
     if (category != undefined) {
       res.render('admin/categories/edit-category', { category: category });
     } else {
@@ -75,20 +74,19 @@ const updateCategory = async (req, res) => {
   const id = req.body.id;
   const title = req.body.title;
 
-  Category
-    .update({
-      title: title,
-      slug: slugify(title)
-    }, {
-      where: { id: id }
-    })
+  update({
+    title: title,
+    slug: slugify(title)
+  }, {
+    where: { id: id }
+  })
     .then(() => {
       res.redirect('/admin/categories');
     })
 };
 
 
-module.exports = {
+export default {
   createNewCategory,
   saveCategory,
   findAllCategory,

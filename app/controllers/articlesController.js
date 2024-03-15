@@ -1,14 +1,13 @@
-const Article = require('../models/Article');
-const Category = require('../models/Category');
-const slugify = require('slugify');
-const adminAuth = require('../middlewares/adminAuth');
+import { findAll, create, destroy, findByPk, update, findAndCountAll } from '../models/Article';
+import Category, { findAll as _findAll } from '../models/Category';
+import slugify from 'slugify';
+import adminAuth from '../middlewares/adminAuth';
 
 // Listar artigos
 const findAllArticles = async (req, res) => {
-  Article
-    .findAll({
-      include: [{ model: Category }]
-    })
+  findAll({
+    include: [{ model: Category }]
+  })
     .then(articles => {
       res.render('admin/articles/index', { articles: articles });
     });
@@ -16,7 +15,7 @@ const findAllArticles = async (req, res) => {
 
 // Criar artigo
 const newArticle = async (req, res) => {
-  Category.findAll(categories => {
+  _findAll(categories => {
     res.render('admin/articles/new-article', { categories: categories });
   });
 };
@@ -29,13 +28,12 @@ const saveArticle = async (req, res) => {
 
   const { title, body, category } = req.body;
 
-  Article
-    .create({
-      title: title,
-      slug: slugify(title),
-      body: body,
-      categoryid: category
-    })
+  create({
+    title: title,
+    slug: slugify(title),
+    body: body,
+    categoryid: category
+  })
     .then(() => {
       res.redirect('/admin/articles');
     });
@@ -47,10 +45,9 @@ const removeArticle = async (req, res) => {
 
   if (id != undefined) {
     if (!isNaN(id)) {
-      Article
-        .destroy({
-          where: { id: id }
-        })
+      destroy({
+        where: { id: id }
+      })
         .then(() => {
           res.redirect('/admin/articles');
         });
@@ -66,12 +63,10 @@ const removeArticle = async (req, res) => {
 const editArticle = async (req, res) => {
   const id = req.params.id;
 
-  Article
-    .findByPk(id)
+  findByPk(id)
     .then(article => {
       if (article != undefined) {
-        Category
-          .findAll()
+        _findAll()
           .then(categories => {
             res.render('admin/articles/edit-article', { categories: categories })
           });
@@ -89,15 +84,14 @@ const editArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   const { id, title, body, category } = req.body;
 
-  Article
-    .update({
-      title: title,
-      body: body,
-      categoryId: category,
-      slug: slugify(title)
-    }, {
-      where: { id: id }
-    })
+  update({
+    title: title,
+    body: body,
+    categoryId: category,
+    slug: slugify(title)
+  }, {
+    where: { id: id }
+  })
     .the(() => {
       res.redirect('/admin/articles');
     })
@@ -113,12 +107,11 @@ const paginationArticles = async (req, res) => {
 
   IsNaN(page) || page == 1 ? offset = 0 : offset = (parseInt(page) - 1) * 4;
 
-  Article
-    .findAndCountAll({
-      limit: 5,
-      offset: offset,
-      order: [['id', DEC]]
-    })
+  findAndCountAll({
+    limit: 5,
+    offset: offset,
+    order: [['id', DEC]]
+  })
     .then(articles => {
       var next;
       offset + 4 >= articles.count ? next = false : next = true;
@@ -129,8 +122,7 @@ const paginationArticles = async (req, res) => {
         articles: articles,
       };
 
-      Category
-        .findAll()
+      _findAll()
         .then(categories => {
           res.render('admin/articles/page', { result: result, categories: categories });
         });
@@ -142,7 +134,7 @@ const paginationArticles = async (req, res) => {
 
 
 
-module.exports = {
+export default {
   findAllArticles,
   newArticle,
   saveArticle,

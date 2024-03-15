@@ -1,16 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-// const connection = require("./database/connection");
-const indexRouter = require('./routes/indexRouter');
-const categoriesRouter = require('./routes/categoriesRouter');
-const articlesRouter = require('./routes/articlesRouter');
-const usersRouter = require('./routes/usersRouter');
+import express from 'express';
+import bodyParser from 'body-parser';
+import connection from './database/connection';
+import indexRouter from './routes/index-router';
+import categoriesRouter from './routes/categories-router';
+import articlesRouter from './routes/articles-router';
+import usersRouter from './routes/users-router';
+import dotenv from 'dotenv';
+import session from 'express-session';
+import { configDotenv } from 'dotenv';
 
-const session = require('express-session');
+dotenv.config();
 
+const PORT = process.env.SERVER_PORT || 3000;
 const app = express();
 
-// EJS
+// config   EJS
 app.set('view engine', 'ejs');
 
 // //Express Session
@@ -54,6 +58,6 @@ app.use('/', usersRouter);
 // });
 
 // Servidor
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('Servidor iniciado!');
 });
